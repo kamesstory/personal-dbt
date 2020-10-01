@@ -41,22 +41,20 @@ data3 as (
 ),
 
 -- PART 4: calculating session durations
-session_durations as (
+data4 as (
   select
     user_id,
-    users.email,
     user_session_number,
     max(user_day_number) as num_days,
     min(time) as session_start,
-    max(session_end) as max_session_end,
+    max(session_end) as session_end,
     round(((extract(epoch from max(session_end)) - extract(epoch from max(session_start))) / 60)::decimal, 1) as session_duration_in_minutes
   from data3
   inner join {{ source('marker', 'users') }} on users.id = user_id
-  group by 1,2,3
-  order by 5 desc
+  group by 1,2
 )
 
-select * from session_durations order by session_duration_in_minutes desc
+select * from data4
 
 
 -- PART 5: aggregating session durations and other calculations (hours_per_week, num_days_used_product, hours_per_day, longest_weekly_session_in_minutes)
