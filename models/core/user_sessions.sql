@@ -45,7 +45,6 @@ data4 as (
   select
     user_id,
     user_session_number,
-    max(user_day_number) as num_days,
     min(time) as session_start,
     max(session_end) as session_end,
     round(((extract(epoch from max(session_end)) - extract(epoch from max(session_start))) / 60)::decimal, 1) as session_duration_in_minutes
@@ -55,17 +54,3 @@ data4 as (
 )
 
 select * from data4
-
-
--- PART 5: aggregating session durations and other calculations (hours_per_week, num_days_used_product, hours_per_day, longest_weekly_session_in_minutes)
---   select
---     session_durations.user_id,
---     email,
---     round(sum(session_duration_in_minutes) / 60, 1) as hours,
---     max(num_days) as num_days_used_product,
---     round(round(sum(session_duration_in_minutes) / 60, 1) / max(num_days), 1) as hours_per_day,
---     max(session_duration_in_minutes) as longest_session_in_minutes
---   from session_durations
---   group by 1,2
---   having sum(session_duration_in_minutes) > 20
---   order by 3 desc;
