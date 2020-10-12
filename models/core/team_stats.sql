@@ -1,5 +1,5 @@
 select
- team_id,
+ team_id as id,
  count(1) as action_count,
  count(distinct user_id) as user_count,
 
