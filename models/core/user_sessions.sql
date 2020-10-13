@@ -3,18 +3,18 @@ with data as (
   select
     user_id,
     "time",
-    round(((extract(epoch from time) - extract(epoch from lag(time) over (partition by user_id order by time asc))) / 60)::decimal, 1) minutes_since_last_event,
+    round(((extract(epoch from time) - extract(epoch from lag(time) over (partition by user_id order by time asc, id))) / 60)::decimal, 1) minutes_since_last_event,
     case
-      when coalesce(round(((extract(epoch from time) - extract(epoch from lag(time) over (partition by user_id order by time asc))) / 60)::decimal, 1), 30) >= 30 then 1
+      when coalesce(round(((extract(epoch from time) - extract(epoch from lag(time) over (partition by user_id order by time asc, id))) / 60)::decimal, 1), 30) >= 30 then 1
       else 0
     end as new_session,
     case
-      when date_trunc('day', time) <> date_trunc('day', lag(time) over (partition by user_id order by time asc)) then 1
-      when lag(time) over (partition by user_id order by time asc) is null then 1
+      when date_trunc('day', time) <> date_trunc('day', lag(time) over (partition by user_id order by time asc, id)) then 1
+      when lag(time) over (partition by user_id order by time asc, id) is null then 1
       else 0
     end as new_day
   from {{ source('marker', 'events') }}
-  order by 2, 1 asc
+  order by 2 asc, id
 ),
 
 -- PART 2: grouping events into sessions
@@ -22,9 +22,9 @@ data2 as (
   select
     user_id,
     "time",
-    sum(new_session) over (partition by user_id order by time asc rows unbounded preceding) as user_session_number,
-    min(time) over (partition by user_id order by time asc rows unbounded preceding) as user_session_start,
-    sum(new_day) over (partition by user_id order by time asc rows unbounded preceding) as user_day_number
+    sum(new_session) over (partition by user_id order by time asc, id rows unbounded preceding) as user_session_number,
+    min(time) over (partition by user_id order by time asc, id rows unbounded preceding) as user_session_start,
+    sum(new_day) over (partition by user_id order by time asc, id rows unbounded preceding) as user_day_number
   from data
 ),
 
@@ -35,8 +35,8 @@ data3 as (
     "time",
     user_session_number,
     user_day_number,
-    min(time) over (partition by user_id, user_session_number order by time asc rows unbounded preceding) as session_start,
-    max(time) over (partition by user_id, user_session_number order by time asc rows unbounded preceding) as session_end
+    min(time) over (partition by user_id, user_session_number order by time, id asc rows unbounded preceding) as session_start,
+    max(time) over (partition by user_id, user_session_number order by time, id asc rows unbounded preceding) as session_end
   from data2
 ),
 
