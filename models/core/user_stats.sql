@@ -2,8 +2,8 @@ select
  user_id,
  count(1) as action_count,
 
- min(time) as first_event,
- max(time) as last_event,
+ min(time)::timestamptz as first_event,
+ max(time)::timestamptz as last_event,
  round(((extract(epoch from max(time)::timestamp) - extract(epoch from min(time)::timestamp)) / 86400.00)::numeric,4) as days_between_first_last_events,
  round(((extract(epoch from getdate()) - extract(epoch from max(time)::timestamp)) / 86400.00)::numeric,4) as days_since_last_event,
 
