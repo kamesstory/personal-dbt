@@ -16,3 +16,17 @@ select
 
 from {{ source('marker', 'events') }}
 group by 1
+
+union 
+ select 9999 as id,
+ 0 as action_count,
+ 0 as user_count,
+ getdate() as first_event,
+ getdate() as last_event,
+ 0 as days_between_first_last_events,
+ 0 as days_since_last_event,
+ 0 as images_added,
+ 0 as images_deleted,
+ 0 as auto_organize_canvas,
+ 0 as canvas_created,
+ 0 as canvas_shared
