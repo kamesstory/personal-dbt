@@ -1,5 +1,6 @@
 select
     ud.*,
+    'red' as favorite_color,
     {{ dbt_utils.star(from=ref('user_stats'), except=["user_id"]) }},
     {{ dbt_utils.star(from=ref('user_classification'), except=["id"]) }}
 from {{ ref('user_details') }} ud
