@@ -21,6 +21,7 @@ with data as (
 -- PART 2: grouping events into sessions
 data2 as (
   select
+    id, 
     user_id,
     "time",
     sum(new_session) over (partition by user_id order by time asc, id rows unbounded preceding) as user_session_number,
