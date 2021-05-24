@@ -1,6 +1,7 @@
 -- PART 1: data prep on each user's events to find time since their last event, if the next event constitutes a new session and is on a new day than the previous
 with data as (
   select
+    id, 
     user_id,
     "time",
     round(((extract(epoch from time) - extract(epoch from lag(time) over (partition by user_id order by time asc, id))) / 60)::decimal, 1) minutes_since_last_event,
@@ -31,6 +32,7 @@ data2 as (
 -- PART 3: defining each session's start and end time
 data3 as (
   select
+    id, 
     user_id,
     "time",
     user_session_number,
