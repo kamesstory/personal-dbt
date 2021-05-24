@@ -35,8 +35,8 @@ data3 as (
     "time",
     user_session_number,
     user_day_number,
-    min(time) over (partition by user_id, user_session_number order by time, id asc rows unbounded preceding) as session_start,
-    max(time) over (partition by user_id, user_session_number order by time, id asc rows unbounded preceding) as session_end
+    min(time) over (partition by user_id, user_session_number order by time asc, id rows unbounded preceding) as session_start,
+    max(time) over (partition by user_id, user_session_number order by time asc, id rows unbounded preceding) as session_end
   from data2
 ),
 
