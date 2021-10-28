@@ -35,14 +35,3 @@ models:
   marker_demo:
     materialized: view
     +tags: "census"
-
-  models:
-  - name: golden_teams
-    description: This table contains the unified/deduplicated list of teams we care about
-
-    columns:
-      - name: email_domain
-        description: The dominant domain for this team
-        tests:
-          - unique
-          - not_null
