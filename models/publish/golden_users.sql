@@ -1,4 +1,4 @@
--- Initial commit
+-- Initial commit: trivial
 
 select
     ud.*,
