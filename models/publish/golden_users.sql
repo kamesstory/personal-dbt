@@ -1,3 +1,5 @@
+-- Initial commit
+
 select
     ud.*,
     'red' as favorite_color,
