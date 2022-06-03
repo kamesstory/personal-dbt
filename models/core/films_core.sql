@@ -1,3 +1,4 @@
 select
-  films.*
+  films.*,
+  'published' as status
 from source('public', 'films')
