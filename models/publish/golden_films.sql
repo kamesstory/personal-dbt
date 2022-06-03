@@ -1,4 +1,4 @@
 select
   films.*,
   'golden' as type
-from ref('films_core') films
+from {{ ref('films_core') }} films
