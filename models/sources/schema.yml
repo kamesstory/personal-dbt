@@ -1,13 +1,8 @@
-
 version: 2
 
 sources:
-  - name: marker
-    description: This is a sample B2B SaaS DB
-    schema: marker
+  - name: public
+    description: This is a sample DB
+    schema: public
     tables:
-      - name: users
-      - name: events
-      - name: teams
-      - name: tickets
-      - name: nps_responses
+      - name: films

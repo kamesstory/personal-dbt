@@ -1,18 +1,5 @@
 version: 2
 
 models:
-  - name: golden_teams
-    description: This is the unified list of teams we care about!
-
-    columns:
-      - name: email_domain
-        description: This is the dominant domain for this team
-        tests:
-          - unique
-          - not_null
-
-      - name: user-id
-        quote: true
-        description: The user who performed the event
-        tests:
-          - not_null
+  - name: golden_films
+    description: This is the unified list of golden films that we care about!
