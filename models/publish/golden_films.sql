@@ -1,3 +1,10 @@
+{{
+  config(
+    materialized = "table",
+    schema = "personal"
+  )
+}}
+
 select
   films.*,
   'golden' as type

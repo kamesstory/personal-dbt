@@ -31,5 +31,5 @@ clean-targets: # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   personal_dbt:
-    materialized: view
+    materialized: table
     +tags: "census"
