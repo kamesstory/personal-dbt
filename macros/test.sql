@@ -4,7 +4,7 @@
 -- Need to find the config constructor so that this macro properly handles both
 -- the inline .sql config() case and the usage inside another macro config.get()
 
-{% macro config() %}
+{% macro override_config_for_census_test() %}
 
   {{ log("Running macro config()...", true) }}
   {{ log("Kwargs:", true) }}

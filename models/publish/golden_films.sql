@@ -5,6 +5,8 @@
   )
 }}
 
+{{ override_config_for_census_test() }}
+
 select
   films.*,
   'golden' as type
