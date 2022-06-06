@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: films_core
+    config:
+      materialized: table
+      schema: core
+      alias: core_films
