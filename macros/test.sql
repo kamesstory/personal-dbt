@@ -9,6 +9,6 @@
 
   {% set _dummy = kwargs.update({'materialized': 'view', 'schema': 'test'}) %}
   {{ log(kwargs, true) }}
-  {% do return(builtins.config(kwargs)) %}
+  {{ return(builtins.config(kwargs)) }}
 
 {% endmacro %}
