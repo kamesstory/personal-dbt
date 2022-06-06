@@ -1,7 +1,7 @@
 {{
   config(
     materialized = "table",
-    schema = "publish"
+    alias = "golden_films_aliased"
   )
 }}
 
