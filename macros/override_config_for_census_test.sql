@@ -4,20 +4,12 @@
 {% macro override_config_for_census_test() %}
 
   {{ log("Overriding config for Census test with macro override_config_for_census_test...", true) }}
-  {{ log("Model:" ~ model, true) }}
 
-  {% set model_name = model['name'] %}
-  {{ log("Model name:" ~ model_name, true) }}
+  {% set base_model_name = model['name'] %}
+  {% set current_name = builtins.config.get('alias') or base_model_name %}
+  {% set overriding_name = current_name ~ '_123456' %}
 
-  {% set existing_name = builtins.config.get('alias') or model_name %}
-
-  {{ log("Existing name = " ~ existing_name, true) }}
-
-  {% set alias = existing_name ~ '_123456' %}
-
-  {{ log("New alias = " ~ alias, true)}}
-
-  {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': alias} %}
+  {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': overriding_name} %}
   {{ return(builtins.config(new_config)) }}
 
 {% endmacro %}
