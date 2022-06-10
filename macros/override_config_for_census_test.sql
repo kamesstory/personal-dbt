@@ -7,12 +7,10 @@
 
   {{ log("Model currently is " ~ model, true) }}
 
-  {% set base_model_name = model['name'] %}
-  {% set base_alias = builtins.config.get('alias') %}
-  {{ log("Base alias is " ~ base_alias, true) }}
+  {{ log("Model fqn is " ~ model['fqn'], true) }}
 
-  {% set current_name = config.get('alias') or base_model_name %}
-  {% set overriding_name = current_name ~ '_123456' %}
+  {% set joined_fqn = '.'.join(model['fqn']) %}
+  {% set overriding_name = joined_fqn ~ '_123456' %}
 
   {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': overriding_name} %}
   {{ return(builtins.config(new_config)) }}
