@@ -10,7 +10,7 @@
   {{ log("Kwargs:", true) }}
   {{ log(kwargs, true) }}
 
-  {% set _dummy = kwargs.update({'materialized': 'view', 'schema': 'test'}) %}
+  {% set _dummy = kwargs.update({'materialized': 'view', 'schema': 'census'}) %}
   {{ log(kwargs, true) }}
   {{ return(builtins.config(kwargs)) }}
 
