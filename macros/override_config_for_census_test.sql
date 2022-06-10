@@ -6,12 +6,9 @@
 
 {% macro override_config_for_census_test() %}
 
-  {{ log("Running macro config()...", true) }}
-  {{ log("Kwargs:", true) }}
-  {{ log(kwargs, true) }}
+  {{ log("Overriding config for Census test with macro override_config_for_census_test...", true) }}
 
-  {% set _dummy = kwargs.update({'materialized': 'view', 'schema': 'census'}) %}
-  {{ log(kwargs, true) }}
-  {{ return(builtins.config(kwargs)) }}
+  {% set new_config = {'materialized': 'view', 'schema': 'census'} %}
+  {{ return(builtins.config(new_config)) }}
 
 {% endmacro %}
