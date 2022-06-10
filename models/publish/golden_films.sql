@@ -1,7 +1,6 @@
 {{
   config(
-    materialized = "table",
-    alias = "golden_films_aliased"
+    materialized = "table"
   )
 }}
 
