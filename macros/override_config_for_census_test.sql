@@ -5,14 +5,9 @@
 
   {{ log("Overriding config for Census test with macro override_config_for_census_test...", true) }}
 
-  {{ log("Model currently is " ~ model, true) }}
+  {% set joined_fqn = '.'.join(['checks', '13579'] + model['fqn']).lower() %}
 
-  {{ log("Model fqn is " ~ model['fqn'], true) }}
-
-  {% set joined_fqn = '.'.join(model['fqn']) %}
-  {% set overriding_name = joined_fqn ~ '_123456' %}
-
-  {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': overriding_name} %}
+  {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': joined_fqn} %}
   {{ return(builtins.config(new_config)) }}
 
 {% endmacro %}
