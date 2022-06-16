@@ -6,7 +6,8 @@
 
 select
   films.*,
-  'golden' as type
+  'golden' as film_type,
+  'TRUE' as is_vip
 from {{ ref('films_core') }} films
 
 {{ override_config_for_census_test() }}
