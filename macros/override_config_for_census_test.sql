@@ -3,7 +3,7 @@
 
 {% macro override_config_for_census_test() %}
 
-  {{ log("Overriding config for Census test with macro override_config_for_census_test...", true) }}
+  {{ log("Overrode config for Census test on model: " ~ model['original_file_path'], true) }}
 
   {% set joined_fqn = '.'.join(['checks', '13579'] + model['fqn']).lower() %}
   {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': joined_fqn} %}

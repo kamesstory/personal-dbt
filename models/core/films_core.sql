@@ -1,3 +1,9 @@
+{{
+  config(
+    tags=["core"]
+  )
+}}
+
 select
   films.*,
   'published' as status,
