@@ -5,8 +5,9 @@
 
   {{ log("Overrode config for Census test on model: " ~ model['original_file_path'], true) }}
 
-  {% set joined_fqn = '.'.join(['checks', '13579'] + model['fqn']).lower() %}
-  {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': joined_fqn} %}
+  {% set underscored_name = model['unique_id'].replace('.', '_') %}
+  {% set unique_model_name = '_'.join(['checks', 'manual_test', underscored_name]).lower() %}
+  {% set new_config = {'materialized': 'view', 'schema': 'census', 'alias': unique_model_name} %}
 
   {{ return(builtins.config(new_config)) }}
 
