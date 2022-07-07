@@ -1,0 +1,9 @@
+selectors:
+  - name: census_dbt_check
+    description: "Selector for all models that are upstream of Census and downstream of the changed files"
+    definition:
+      intersection:
+        - union:
+            - "models/core/films_core.sql+"
+            - "models/core/kernel/corn.sql+"
+        - "+publish"
