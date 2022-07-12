@@ -13,12 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: dbt-run
+      - name: dbt-action
         id: dbt-run
-        uses: ./
+        uses: mwhitaker/dbt-action@master
         with:
+          # dbt_command: "dbt run --profiles-dir ."
           dbt_command: "dbt --version"
+        # env:
+        #   DBT_BIGQUERY_TOKEN: ${{ secrets.DBT_BIGQUERY_TOKEN }}
 
       - name: Get the result
+        if: ${{ always() }}
         run: echo "${{ steps.dbt-run.outputs.result }}"
         shell: bash
