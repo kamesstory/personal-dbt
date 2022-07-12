@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'models/**'
+      - "models/**"
 
 jobs:
   action:
@@ -18,7 +18,7 @@ jobs:
         uses: ./
         with:
           dbt_command: "dbt --version"
-       
+
       - name: Get the result
         run: echo "${{ steps.dbt-run.outputs.result }}"
         shell: bash
